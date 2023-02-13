@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 const express = require("express");
-const projectsRoutes = require("projectRoute");
+const projectsRoutes = require("./routes/projectRoute");
 
 // express app
 const app = express();
@@ -10,8 +10,9 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 // middlewares
+app.use(express.json());
 app.use((req, res, next) => {
-  console.log(req.path, reg.method);
+  console.log(req.path, req.method);
   next();
 });
 
@@ -20,7 +21,7 @@ app.use((req, res, next) => {
 //   res.json({ message: "Welcome to the express app!" });
 // });
 
-// app.use("", projectsRoutes);
+app.use("/api/projects", projectsRoutes);
 
 // listening request
 app.listen(port, () => {
