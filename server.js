@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 const express = require("express");
+const cors = require("cors");
 const mongoose = require("mongoose");
 const projectsRoutes = require("./routes/projectRoute");
 
@@ -11,6 +12,7 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 // middlewares
+app.use(cors());
 app.use(express.json());
 app.use((req, res, next) => {
   console.log(req.path, req.method);
@@ -18,15 +20,10 @@ app.use((req, res, next) => {
 });
 
 // routes
-// app.get("/", (req, res) => {
-//   res.json({ message: "Welcome to the express app!" });
-// });
-
-// routes
 app.use("/api/projects", projectsRoutes);
 
 // mongodb
-mongoose.set("strictQuery", false); //optional
+mongoose.set("strictQuery", false);
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {

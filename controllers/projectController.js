@@ -3,7 +3,7 @@ const Project = require("../models/projectModel");
 
 // get all projects
 const getAllProjects = async (req, res) => {
-  const projects = await Project.find({});
+  const projects = await Project.find({}).sort({ createdAt: -1 }); // descending
 
   res.status(200).json(projects);
 };
@@ -65,7 +65,11 @@ const updateProject = async (req, res) => {
     return res.status(404).json({ error: "Invalid id" });
   }
 
-  const project = await Project.findOneAndUpdate({ _id: id }, { ...req.body });
+  const project = await Project.findOneAndUpdate(
+    { _id: id },
+    { ...req.body },
+    { new: "true" }
+  );
 
   if (!project) {
     return res.status(400).json({ error: "No project found" });
