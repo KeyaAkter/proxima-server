@@ -30,7 +30,7 @@ userSchema.statics.signup = async function (email, password) {
   // check strong passsword
   if (!validator.isStrongPassword(password)) {
     throw Error(
-      "Password isn't strong, try to combine uppercase, lowercase, number and symbol and remember that pass must be atleast 8 characters "
+      "Your password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one symbol. Please try again with a stronger password."
     );
   }
 
