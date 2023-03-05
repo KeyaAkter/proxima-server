@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 app.use("/api/projects", projectsRoutes);
 app.use("/api/user", userRoutes);
 
-// mongodb
+// connecting to the database(mongodb)
 mongoose.set("strictQuery", false);
 mongoose
   .connect(process.env.MONGO_URI)
